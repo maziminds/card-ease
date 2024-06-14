@@ -21,9 +21,13 @@
 - you can try the demo of asset on itch [here](https://maziminds.itch.io/card-ease)
 
 ## Installation
-1. Download the CardEase package from the Unity Asset Store.
+1. Download the CardEase package from the [Unity Asset Store](https://assetstore.unity.com/packages/2d/gui/cardease-drag-drop-card-system-284789).
 2. Open your Unity project.
 3. Import the CardEase package into your project(it will be imported in `Maziminds/CardEase` folder).
+
+## Support
+1. if you found any bug/issue in package or wants to request any update then please open an issue from [here](https://github.com/maziminds/card-ease/issues)
+2. if you like this project and wants to support it by donation then you can do it from [here](https://github.com/sponsors/mazimez)
 
 ## Getting Started
 
