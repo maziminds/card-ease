@@ -51,5 +51,15 @@ namespace Demo
                 CardEase.EventManager<V3CardModel, V3CardManager>.CARD_DESELECTED.Invoke(this);
             }
         }
+
+        public override void CardPicked()
+        {
+            CardEase.EventManager<V3CardModel, V3CardManager>.CARD_PICKED.Invoke(this);
+        }
+
+        public override void CardDropped()
+        {
+            CardEase.EventManager<V3CardModel, V3CardManager>.CARD_DROOPED.Invoke(this);
+        }
     }
 }

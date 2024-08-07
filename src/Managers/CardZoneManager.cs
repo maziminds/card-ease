@@ -128,6 +128,34 @@ namespace CardEase
 
 
         /// <summary>
+        /// Get the list of total SELECTED cards in the card zone
+        /// </summary>
+        /// <remarks>
+        /// This method will get the list of all SELECTED cards in that perticular card zone
+        /// </remarks>
+        /// <returns>
+        /// A list of <see cref="CardManager{T}"/> objects representing all the cards in the card zone.
+        /// </returns>
+        public virtual List<CardManager<T>> GetAllSelectedCards()
+        {
+            List<CardManager<T>> selectedCards = new List<CardManager<T>>();
+            foreach (Transform groupTransform in transform)
+            {
+                foreach (Transform cardTransform in groupTransform)
+                {
+                    CardManager<T> card = cardTransform.gameObject.GetComponent<CardManager<T>>();
+                    if (card.isSelected)
+                    {
+                        selectedCards.Add(card);
+                    }
+
+                }
+            }
+            return selectedCards;
+        }
+
+
+        /// <summary>
         /// This method will make a new group of selected cards and return the group
         /// </summary>
         /// <remarks>

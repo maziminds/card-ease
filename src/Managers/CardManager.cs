@@ -69,6 +69,32 @@ namespace CardEase
             }
 
         }
+
+        /// <summary>
+        /// Method that will be called whenever the card is picked up
+        /// </summary>
+        /// <returns>void</returns>
+        /// <remarks>
+        /// This method gets called whenever the card is picked up
+        /// </remarks>
+        public virtual void CardPicked()
+        {
+            CardEase.EventManager<T, CardManager<T>>.CARD_PICKED.Invoke(this);
+        }
+
+        /// <summary>
+        /// Method that will be called whenever the card is dropped
+        /// </summary>
+        /// <returns>void</returns>
+        /// <remarks>
+        /// This method gets called whenever the card is dropped
+        /// </remarks>
+        public virtual void CardDropped()
+        {
+            CardEase.EventManager<T, CardManager<T>>.CARD_DROOPED.Invoke(this);
+        }
+
+
         #endregion
 
 
@@ -76,6 +102,7 @@ namespace CardEase
         #region all LOGIC for drag-drop on group
         public void OnBeginDrag(PointerEventData eventData)
         {
+            CardPicked();
             parentGroup = transform.parent;
             cardPlaceholder = Instantiate(cardPlaceHolderPrefab, transform.parent);
             cardPlaceholder.transform.SetSiblingIndex(transform.GetSiblingIndex());
@@ -114,7 +141,7 @@ namespace CardEase
             transform.SetSiblingIndex(cardPlaceholder.transform.GetSiblingIndex());
             StartCoroutine(DestroyAndWait());
             GetComponent<CanvasGroup>().blocksRaycasts = true;
-
+            CardDropped();
         }
         #endregion
 

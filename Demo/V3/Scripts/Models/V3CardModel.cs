@@ -8,13 +8,21 @@ namespace Demo
     {
         public int value;
         public string name;
+        public CardColor color;
         public Sprite image;
 
-        public V3CardModel(int num, string str, Sprite img)
+        public V3CardModel(int num, string str, Sprite img, CardColor col)
         {
             this.value = num;
             this.name = str;
             this.image = img;
+            this.color = col;
         }
+    }
+
+    public enum CardColor
+    {
+        RED,
+        BLACK
     }
 }
