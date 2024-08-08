@@ -17,11 +17,6 @@ namespace CardEase
         public static UnityEvent<T> CARD_DROOPED = new UnityEvent<T>();
         #endregion
 
-        #region CARD ENTER/EXIT(HOVER)
-        public static UnityEvent CARD_ENTER_ZONE = new UnityEvent();
-        public static UnityEvent CARD_EXIT_ZONE = new UnityEvent();
-        #endregion
-
         #region CARD SELECTION
 
         /// <summary>

@@ -13,6 +13,7 @@
    - [CardZoneManager](#card-zone-manager)
    - [CardGroupManager](#card-group-manager)
    - [CardManager](#card-manager)
+   - [EventManager](#event-manager)
 
 ## Introduction
 **CardEase** is a 2D Unity asset that provides simple drag-and-drop functionality with a high level of customization. It allows users to implement basic drag-and-drop features for cards, organize cards into groups, adjust spacing between cards, and customize prefabs to there likings. CardEase removes the complexity of creating drag-and-drop systems from scratch while giving you total control over each game object.
@@ -31,9 +32,9 @@
 
 ## Getting Started
 
-- The package mainly has 2 folders: `Demo` and `src`. The folder contains some demo scenes and prefabs that you can use to test the functionality and get familiar with the package, you can change anything in that folder to test the functionality. this folder has 2 folder `V1` and `V2` in it, `V1` folder shows a basic demo of package with default settings and `V2` folder shows a bit customized demo with some customizations examples.
+- The package mainly has 2 folders: `Demo` and `src`. The folder contains some demo scenes and prefabs that you can use to test the functionality and get familiar with the package, you can change anything in that folder to test the functionalities. this folder has 3 folders `V1` ,`V2` and `V3` in it, `V1` folder shows a basic demo of package with default settings and `V2` folder shows a bit customized demo with some customizations examples and `V3` shows the latest update with Event system.
 - The `src` folder contains the source code for the package, it contains all core scripts for drag-drop and other features. if you want to change anything in that folder, you can do that(only if you know what you are doing).
-- This package works with [RectTransform](https://docs.unity3d.com/ScriptReference/RectTransform.html) and [Horizontal Layout Group](https://docs.unity3d.com/Packages/com.unity.ugui@3.0/manual/script-HorizontalLayoutGroup.html) to show an organized deck of cards that you drag around in the scene. The package simply provides you with some abstract classes(scripts) that you can extends and customize. by default it gives basic drag-drop functionality and you can add your own customization by extending it.
+- This package works with [RectTransform](https://docs.unity3d.com/ScriptReference/RectTransform.html) and [Horizontal Layout Group](https://docs.unity3d.com/Packages/com.unity.ugui@3.0/manual/script-HorizontalLayoutGroup.html) to show an organized deck of cards that you drag around in the scene. The package simply provides you with some abstract classes(scripts) that you can extends and customize. by default it gives basic drag-drop functionality with events on different actions like card pick/drop or select/deselect and you can add your own customization by extending it.
 - The package mainly contains 3 things: 
    - `CardZone` : this represent the place or area where cards can be placed. it's mostly a rectangular `GameObject`.
    - `CardGroup` : this is a child of `CardZone`, that has a group of cards in it. 1 `CardZone` can have multiple `CardGroup` but 1 `CardGroup` can only be a child of 1 `CardZone`.
@@ -91,5 +92,14 @@
 - This [CardManager](src/Managers/CardManager.cs) is also an Abstract class that you can extend with your own custom script. that extended script should be attached to a `Card` prefab. this Abstract class implements classes like `MonoBehaviour`, `IBeginDragHandler`,`IDragHandler`,`IEndDragHandler` to handle some drag-drop functions.
 - while extending, pass the [CardModel's](src/Models/CardModel.cs) extended class.
 - Once Extended, you need to override 2 methods `SetData` and `UpdateSelection`. you can add any other custom element to the `Card` prefab to suites your requirements.
-   - `SetData`: This method will set the data of the card. it takes a class that extend [CardModel](src/Models/CardModel.cs) model that contains any custom values you want to be applied to the card. then you can use this values to render your card.
-   - `UpdateSelection`: This method will update the card selection. it takes a boolean value that indicates if the card is selected or not. while overriding this method, make you update `isSelected` property by `this.isSelected = isSelected;` then you can add any other custom code that change card's look while it's selected.
+   - `SetData`: This method will set the data of the card. it takes a class that extend [CardModel](src/Models/CardModel.cs) model that contains any custom values you want to be applied to the card. then you can use this values to render your card. you can see it's example in [V2CardManager](Demo/V2/Scripts/Managers/V2CardManager.cs)
+   - `UpdateSelection`: This method will update the card selection. it takes a Boolean value that indicates if the card is selected or not. while overriding this method, make sure you update `isSelected` property by `this.isSelected = isSelected;` then you can add any other custom code that change card's look while it's selected. you can see it's example in [V2CardManager](Demo/V2/Scripts/Managers/V2CardManager.cs)
+
+### Event Manager
+- This [EventManager](src/Managers/EventManager.cs) is a Generic type class that contains a list of events that can be invoked and listened by any script/class in whole game. 
+- this events are supposed to be used to make the UI/GAME interact while the player is performing some action on cards. for example, if you want to do some action whenever the player pick/drop a card and you can listen to it's event. similarly there is an event for card select/deselect as well.
+- by default it wont fire any events but you can decide which event to fire/invoke and which event to listen, for example:
+   - `SELECT/DESELECT events`: take a look at [V3CardManager](Demo/V3/Scripts/Managers/V3CardManager.cs), in `UpdateSelection` method we are invoking events like `CARD_SELECTED` and `CARD_DESELECTED` whenever the card is selected/deselected.
+      - this events are the listened by [V3Controller](Demo/V3/Scripts/Controllers/V3Controller.cs) with `AddListener` method and then we can perform some tasks on UI like showing the list of all selected cards in the UI.
+   - `PICK/DROP events`: in  [V3CardManager](Demo/V3/Scripts/Managers/V3CardManager.cs), we override 2 more methods `CardPicked` and `CardDropped` that's called when any card is picked/dropped and then we invoked events like `CARD_PICKED` and `CARD_DROPPED` from there.
+      - this events also listened by [V3Controller](Demo/V3/Scripts/Controllers/V3Controller.cs) with `AddListener` method and then we can perform some tasks on UI like highlighting the group of card by it's color or any other logic you want to perform.
