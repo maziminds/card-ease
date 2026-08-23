@@ -103,3 +103,7 @@
       - this events are the listened by [V3Controller](Demo/V3/Scripts/Controllers/V3Controller.cs) with `AddListener` method and then we can perform some tasks on UI like showing the list of all selected cards in the UI.
    - `PICK/DROP events`: in  [V3CardManager](Demo/V3/Scripts/Managers/V3CardManager.cs), we override 2 more methods `CardPicked` and `CardDropped` that's called when any card is picked/dropped and then we invoked events like `CARD_PICKED` and `CARD_DROPPED` from there.
       - this events also listened by [V3Controller](Demo/V3/Scripts/Controllers/V3Controller.cs) with `AddListener` method and then we can perform some tasks on UI like highlighting the group of card by it's color or any other logic you want to perform.
+
+---
+
+Built by [Maziminds](https://maziminds.com) — we build branded games, advergames and gamification systems for brands and creators. [See what we do](https://maziminds.com/services/).
